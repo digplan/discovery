@@ -1,4 +1,4 @@
-module.exports = ports = function(ip, begin, end, cb){
+module.exports = ports = function(ip, begin, end, cb, timeout){
   ip = ip || '127.0.0.1';
   begin = begin-1;
 
@@ -9,7 +9,7 @@ module.exports = ports = function(ip, begin, end, cb){
 
   setTimeout(function(){
     cb(ret);
-  }, 4000);
+  }, timeout || 4000);
 }
 
 function tryport(ip, port, ret){
@@ -19,4 +19,4 @@ function tryport(ip, port, ret){
   c.on('connect', function(){ r.openports.push(port); c.end() });
 }
 
-ports('google.com', 80, 84, console.log.bind(console));
+ports('google.com', 80, 84, console.log.bind(console), 4000);
